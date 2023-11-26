@@ -1,42 +1,53 @@
-<!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP Primer - Index</title>
-</head>
-<body>
-    <h2>Follow each link to the page example</h2>
 
-    <ul>
-        <li><a href="array.php">Simple Array and Printouts</a></li>
-        <li><a href="about.php">About</a></li>
-        <li><a href="dowhileloop.php">Simple Do While</a></li>
-        <li><a href="function.php">Simple Function</a></li>
-        <li><a href="ifstatement.php">Simple If Statement</a></li>
-        <li><a href="switchstatement.php">Simple for Switch</a></li>
-        <li><a href="date.php">Simple for Date </a></li>
-    </ul>
+<?php 
+    $title = 'Index';
+    require_once 'includes/header.php'; 
+    require_once 'db/conn.php';
+
+    $results = $crud->getSpecialties();
+?>
 
 
-    <h1>Hello html - PHP Primer</h1>    
-
-    <br/>
-    <?php
-        echo "Hello world";
-        echo "<br/>";
-        echo "Second Line"
-    ?>
 
 
-    <?php
+    <h1 class="text-center">Registration for IT Conference </h1>
 
-    $name = " Fazekas Milán";
-    echo $name;
-    echo "<br/>";
-    echo "Csa nevem ". $name. " ozt ennyi";
-    ?>
-</body>
-</html>
+    <form method="post" action="success.php">
+        <div class="mb-3">
+            <label for="firstname" class="form-label">First Name</label>
+            <input required type="text" class="form-control" id="firstname" name="firstname" >
+        </div>
+        <div class="mb-3">
+            <label for="lastname" class="form-label">Last Name</label>
+            <input required type="text" class="form-control" id="lastname" name="lastname" >
+        </div>
+        <div class="mb-3">
+            <label for="dob">Date of Birth</label>
+            <input type="text" class="form-control" id="dob" name="dob">
+        </div>
+        <div class="mb-3">
+            <label for="speciality">Area of Experties</label>
+            <select class="form-control" id="speciality" name="speciality">
+                <?php while($r = $results->fetch(PDO::FETCH_ASSOC)) {?>
+                    <option value="<?php echo $r['specialty_id'] ?>"><?php echo $r['name']; ?></option>
+                <?php }?>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input required type="email" class="form-control" id="email" aria-describedby="phoneHelp" name="email">
+            <div id="phoneHelp" class="form-text">We'll never share your phone number with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Contact Number</label>
+            <input type="text" id="phone" aria-describedby="emailHelp" name="phone">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary" name="submit" type="submit">Submit</button>
+        </div>
+    </form>
 
 
+<?php require_once 'includes/footer.php'; ?>
