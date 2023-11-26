@@ -2,6 +2,9 @@
 <?php 
     $title = 'Index';
     require_once 'includes/header.php'; 
+    require_once 'db/conn.php';
+
+    $results = $crud->getSpecialties();
 ?>
 
 
@@ -12,11 +15,11 @@
     <form method="post" action="success.php">
         <div class="mb-3">
             <label for="firstname" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="firstname" name="firstname" >
+            <input required type="text" class="form-control" id="firstname" name="firstname" >
         </div>
         <div class="mb-3">
             <label for="lastname" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastname" name="lastname" >
+            <input required type="text" class="form-control" id="lastname" name="lastname" >
         </div>
         <div class="mb-3">
             <label for="dob">Date of Birth</label>
@@ -25,15 +28,14 @@
         <div class="mb-3">
             <label for="speciality">Area of Experties</label>
             <select class="form-control" id="speciality" name="speciality">
-                <option>Database Admin</option>
-                <option>Software Developer</option>
-                <option>Web Administrator</option>
-                <option>Other</option>
+                <?php while($r = $results->fetch(PDO::FETCH_ASSOC)) {?>
+                    <option value="<?php echo $r['specialty_id'] ?>"><?php echo $r['name']; ?></option>
+                <?php }?>
             </select>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" aria-describedby="phoneHelp" name="email">
+            <input required type="email" class="form-control" id="email" aria-describedby="phoneHelp" name="email">
             <div id="phoneHelp" class="form-text">We'll never share your phone number with anyone else.</div>
         </div>
         <div class="mb-3">
@@ -47,12 +49,5 @@
         </div>
     </form>
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
 
 <?php require_once 'includes/footer.php'; ?>

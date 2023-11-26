@@ -1,7 +1,13 @@
-       
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />      
 
-        <div id="footer">
-            <?php  echo 'Copyright ' . date('y');?>
+        <div id="footer" class="text-center">
+            <?php  echo 'Copyright ' . date('20y.m.d©');?>
         </div>
     </div>
 
@@ -12,7 +18,8 @@
     $( "#dob" ).datepicker({
       changeMonth: true,
       changeYear: true,
-      yearRange: "-100:+0"
+      yearRange: "-100:+0",
+      dateFormat: "yy-mm-dd"
     });
   } );
   </script>

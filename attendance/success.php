@@ -1,10 +1,30 @@
 <?php 
     $title = 'Success';
     require_once 'includes/header.php'; 
+    require_once 'db/conn.php';
+
+    if(isset($_POST['submit'])){
+
+        $fname = $_POST['firstname'];
+        $lname = $_POST['lastname'];
+        $dob = $_POST['dob'];
+        $contact = $_POST['phone'];
+        $email = $_POST['email'];
+        $specialty = $_POST['speciality'];
+        
+        $isSuccess = $crud->insertAttendees($fname,$lname,$dob,$email,$contact,$specialty);
+
+        if($isSuccess){
+            include 'includes/successmessage.php';
+        }
+        else{
+            echo '<h1 class = "text-center text-danger" >There was an error in processing</h1>';
+        }
+    }
 ?>
 
 
-    <h1 class="text-center text-success">You Have Been Registered</h1>
+
 
     <!-- get-->
     <!--
